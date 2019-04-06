@@ -1,0 +1,207 @@
+<html>
+<head>
+<title>3 pairs memory game</title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+body {
+	margin:0;
+	padding:0;
+	font-size:50px;
+	background:url("images/bg.jpg") ;
+}
+div#memory_board{
+	background:none;
+	top:0;
+	width:80%;
+	height:85%;
+	
+	
+}
+div#memory_board > div{
+	background: url("images/tile_bgg.jpg")  ;
+	border:#000 5px solid;
+	border-radius:10px;
+	width:25%;
+	height:35%;
+	float:left;
+	margin:4%;
+	box-shadow:1px 1px 5px black;
+	font-size:64px;
+	cursor:pointer;
+	text-align:center;
+}
+div#memory_board > div img{
+	border-radius:5px;
+}
+</style>
+</head>
+<body>
+<script>
+
+var memory_array=['images/1.jpg','images/1.jpg','images/2.jpg','images/2.jpg','images/3.jpg','images/3.jpg'];
+var score=0;
+var memory_values = [];
+var memory_tile_ids = [];
+var tiles_flipped = 0;
+
+
+
+var sec = 0;
+      function pad ( val ) { return val > 9 ? val : "0" + val; }
+      var myTimer= setInterval( function(){
+          document.getElementById("seconds").innerHTML=(pad(++sec%60));
+          document.getElementById("minutes").innerHTML=(pad(parseInt(sec/60,10)));
+      }, 1000);
+	  
+
+	  Array.prototype.memory_tile_shuffle = function(){
+    var i = this.length, j, temp;
+    while(--i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+}
+function addtime(){
+					var getseconds=document.getElementById("seconds").innerHTML;
+					var getminutes=document.getElementById("minutes").innerHTML;
+					document.getElementById("timingscore").value=getminutes+":"+getseconds;
+					}
+
+function newBoard() {
+tiles_flipped = 0;
+	var output = '';
+	memory_array.memory_tile_shuffle();  
+	
+	  
+	for(var i = 0; i < memory_array.length; i++){
+		
+		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+	}
+	document.getElementById('memory_board').innerHTML = output;
+}
+	
+
+
+		function showall(){
+	for(var i=0;i <memory_array.length;i++){
+	document.getElementById('tile_'+i+'').innerHTML='<img src="'+memory_array[i]+'" height="100%" width="100%"/>';
+	}
+}
+setTimeout(showall,10);
+
+function hideall(){
+	for(var i=0;i <memory_array.length;i++){
+	document.getElementById('tile_'+i+'').innerHTML='';
+	}
+}
+setTimeout(hideall,3000);
+
+
+	
+	
+
+
+function memoryFlipTile(tile,val){
+	if(tile.innerHTML == "" && memory_values.length < 2){
+		tile.style.background = '#FFF';
+		tile.innerHTML ='<img src="'+val+'" height="100%" width="100%"/>';
+		tile.style.transform="scale(1.1,1.1)";
+		tile.style.transition="all 0.5s";
+		if(memory_values.length == 0){
+			memory_values.push(val);
+			memory_tile_ids.push(tile.id);
+		} else if(memory_values.length == 1){
+			memory_values.push(val);
+			memory_tile_ids.push(tile.id);
+			if(memory_values[0] == memory_values[1]){
+				
+				tiles_flipped += 2;
+				var tile_1 = document.getElementById(memory_tile_ids[0]);
+				var tile_2 = document.getElementById(memory_tile_ids[1]);
+				tile_1.style.transform="scale(1,1)";
+				tile_1.style.transition="all 0.5s";
+				tile_2.style.transform="scale(1,1)";
+				tile_2.style.transition="all 0.5s";
+				// Clear both arrays
+				memory_values = [];
+            	memory_tile_ids = [];
+				
+				// Check to see if the whole board is cleared
+				if(tiles_flipped == memory_array.length){
+					clearInterval(myTimer);
+					setTimeout(function(){document.getElementById('memory_board').innerHTML=document.getElementById('completedgame').innerHTML;},2000);
+					setTimeout(function(){document.getElementById('memory_board').innerHTML=document.getElementById('formforphp').innerHTML;},5000);
+					setTimeout(addtime,5100);
+					
+					
+				}
+			} else {
+				function flip2Back(){
+				    // Flip the 2 tiles back over
+				    var tile_1 = document.getElementById(memory_tile_ids[0]);
+				    var tile_2 = document.getElementById(memory_tile_ids[1]);
+				    tile_1.style.background = "url('images/tile_bgg.jpg')";
+					tile_1.style.transform="scale(1,1)";
+					tile_1.style.transition="all 0.5s";
+					tile_2.style.transform="scale(1,1)";
+					tile_2.style.transition="all 0.5s";
+            	    tile_1.innerHTML = "";
+				    tile_2.style.background = "url('images/tile_bgg.jpg')";
+            	    tile_2.innerHTML = "";
+				    // Clear both arrays
+				    memory_values = [];
+            	    memory_tile_ids = [];
+				}
+				setTimeout(flip2Back, 700);
+			}
+		}
+	}
+}
+</script>
+<script id="formforphp" type="text/html">
+<p> Please enter your name to save your score:</p>
+<form class="form-inline" method="POST" id="formformform" action="submit3pairs.php">
+<input type="text" id="namenama"  class="form-control" name="nama" style="width:500px;height:50px;" placeholder="Name"/>
+<input name="time"  type="hidden" id="timingscore" />
+<input type="submit" class="btn btn-success" style="width:100px;height:50px;"value="submit"/> 
+</form>
+<button onclick="location.href='2pairs.html'" style="width:200px;height:100px;font-size:30px;" class="btn btn-info">Try 2pairs</button>
+<button onclick="window.location.reload()" style="width:200px;height:100px;font-size:30px;" class="btn btn-warning"><span class="glyphicon glyphicon-repeat"></span>Retry</button>
+<button onclick="location.href='4pairs.html'" style="width:200px;height:100px;font-size:30px;" class="btn btn-info"></span>Try 4pairs</button>
+
+</script>
+
+
+<script id="completedgame" type="text/html">
+<center>
+  <div class="alert alert-success">
+    <strong>Congratulations!</strong>All tiles have been completed!
+  </div>
+  </center>
+  </script>
+
+<center>
+<div style="top:0;">
+<label id="minutes">00</label>:<label id="seconds">00</label>
+</div>
+<div id="memory_board"></div>
+
+
+
+</center>
+<script>newBoard();showall();hideall();</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

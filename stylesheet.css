@@ -1,0 +1,137 @@
+/* default margin and padding because some broswer have default values */
+*{
+    margin: 0;
+    padding:0;
+}
+body {
+    font-size:15px;
+    line-height:1.9;
+    font-size: 18px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+
+}
+/* to change the header below the background and the headers inside the benefits divisions */
+h1 ,h3{
+    font-family: 'Baloo Chettan', cursive;
+}
+
+/* to set the background  at the top the wa it is right now */
+#background {
+    background: url("./images/lumosity-background.svg");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    background-clip:padding-box;
+    padding: 100px;
+    padding-top: 0px;
+}
+/* default setting for divions so they stay centered*/
+.container{
+    width:80%;
+    margin: auto;
+}
+/* to make the header items align horizontally */
+header{
+    font-size: 16px;
+    padding-top: 30px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+}
+/* to change the shape of the menu items text on the top right */
+header a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin:10px;
+
+}
+/* to style the logo on the top left */
+header h1 {
+    color:white;
+    font-family: 'Pacifico', cursive;
+
+}
+/* to change the layout of the menu button on the top right */
+header li{
+    display: inline;
+    padding-right: 10px;
+    padding-left: 10px;
+    background-image:linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
+    border-radius: 10px;
+    border:white 2px solid;
+    margin:10px;
+    font-family: 'Baloo Chettan', cursive;
+}
+/* to change the menu position to the top right */
+header nav{
+    float: right;
+}
+/* to change the button and footer color when you hover over them */
+header li:hover ,#showcase a:hover, footer:hover{
+    background-image:linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+}
+/* showcase is the section below the header that is included in the background which has the start game button */
+#showcase {
+    widows: 100px;
+    height:200px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* to style the text in showcase */
+#showcase h1{
+    font-size:50px;
+    margin:50px;
+    color:white;
+}
+/* to style the start game button */
+#showcase a{
+    background-image:linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding:15px;
+    background-color: white;
+    border:white 2px solid;
+    font-family: 'Baloo Chettan', cursive;
+} 
+/* to align the benefits division horizontally   */
+#benefits {
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+}
+#benefits .box {
+    margin: 80px;
+    text-align: center;
+}
+/* to style the footer nad set it's color */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    background-image:linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
+}
+/* to change the size of the images in the benefits division */
+img {
+    width: 100px;
+    height: 100px;
+}
+/* to change  the size of the moving picture below the background */
+#gif {
+    width: 90%;
+    height:350px;
+    opacity: 0.7;
+}
+/* to lower the rest of the content from the background */
+#introduction{
+    margin-top:50px;
+}
+/* to style the question below the background */
+#introduction h1{
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
